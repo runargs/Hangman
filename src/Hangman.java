@@ -19,13 +19,11 @@ import java.util.Arrays;
 import java.util.Random;
 import java.util.StringTokenizer;
 
-public class Hangman 
+public class Hangman
 {
 
 	//integer values
-	int tries = 0; //number of tries the user has taken to guess
 	static int wordNum;	//identifies the word in the chosen array (category) that is to be guessed
-	int categoryNum; //number user inputs to choose a category
 	static int lengthOfWord; // length of guessed word, when 0 you win (in other words, you guessed the word correctly)
 
 	//character values
@@ -44,23 +42,15 @@ public class Hangman
 	static boolean wordWasGuessed = false;
 
 	// empty arrays for the categories
-	static ArrayList<String> nameArray = new ArrayList<String>(); // filled with names if chosen
-	static ArrayList<String> movieArray = new ArrayList<String>(); // filled with movies if chosen
-	static ArrayList<String> animalArray = new ArrayList<String>(); // filled with animals if chosen
-	static ArrayList<String> foodArray = new ArrayList<String>(); // filled with foods if chosen
-	static ArrayList<String> countryArray = new ArrayList<String>(); // filled with countries if chosen
-	static ArrayList<String> pokemonArray = new ArrayList<String>(); // filled with pokemon if chosen
-	static ArrayList<String> gameOfThronesArray = new ArrayList<String>(); // filled with game of thrones characters, places, etc. if chosen
-	static ArrayList<String> astronomyArray = new ArrayList<String>(); // filled with astronomy terms and celestial bodies if chosen
+	static ArrayList<String> nameArray = new ArrayList<String>(),
+			movieArray = new ArrayList<String>(), animalArray = new ArrayList<String>(),
+			foodArray = new ArrayList<String>(), countryArray = new ArrayList<String>(),
+			pokemonArray = new ArrayList<String>(), gameOfThronesArray = new ArrayList<String>(),
+			astronomyArray = new ArrayList<String>(); // each to be filled with terms respectively if chosen
 
-	final static String NAMES = "names";
-	final static String MOVIES = "movies";
-	final static String ANIMALS = "animals";
-	final static String FOOD = "food";
-	final static String COUNTRY = "countries";
-	final static String POKEMON = "pokemon";
-	final static String GAME_OF_THRONES = "game of thrones";
-	final static String ASTRONOMY = "astronomy";
+	final static String NAMES = "names", MOVIES = "movies", ANIMALS = "animals",
+			FOOD = "food", COUNTRY = "countries", POKEMON = "pokemon",
+			GAME_OF_THRONES = "game of thrones", ASTRONOMY = "astronomy";
 
 	static boolean done = false;
 
@@ -111,7 +101,7 @@ public class Hangman
 	 * on the category selected (categories are 
 	 * selected based on numbers)
 	 * 
-	 * @param num
+	 * @param cat
 	 * @return word
 	 * @throws IOException
 	 */
@@ -119,63 +109,57 @@ public class Hangman
 	{
 		Random n = new Random();
 
-		if (cat.equals(NAMES))
-		{
-			fillArray(NAMES);
+		switch (cat) {
+			case NAMES:
+				fillArray(NAMES);
 
-			// randomly choose a number based on the name array size
-			wordNum = n.nextInt(nameArray.size());
-			// and then retrieve the word at that location
-			word = nameArray.get(wordNum);
-		}
-		else if (cat.equals(MOVIES))
-		{
-			fillArray(MOVIES);
+				// randomly choose a number based on the name array size
+				wordNum = n.nextInt(nameArray.size());
+				// and then retrieve the word at that location
+				word = nameArray.get(wordNum);
+				break;
+			case MOVIES:
+				fillArray(MOVIES);
 
-			wordNum = n.nextInt(movieArray.size());
-			word = movieArray.get(wordNum);
-		}
-		else if (cat.equals(ANIMALS))
-		{
-			fillArray(ANIMALS);
+				wordNum = n.nextInt(movieArray.size());
+				word = movieArray.get(wordNum);
+				break;
+			case ANIMALS:
+				fillArray(ANIMALS);
 
-			wordNum = n.nextInt(animalArray.size());
-			word = animalArray.get(wordNum);
-		}
-		else if (cat.equals(FOOD))
-		{
-			fillArray(FOOD);
+				wordNum = n.nextInt(animalArray.size());
+				word = animalArray.get(wordNum);
+				break;
+			case FOOD:
+				fillArray(FOOD);
 
-			wordNum = n.nextInt(foodArray.size());
-			word = foodArray.get(wordNum);
-		}
-		else if (cat.equals(COUNTRY))
-		{	
-			fillArray(COUNTRY);
+				wordNum = n.nextInt(foodArray.size());
+				word = foodArray.get(wordNum);
+				break;
+			case COUNTRY:
+				fillArray(COUNTRY);
 
-			wordNum = n.nextInt(countryArray.size());
-			word = countryArray.get(wordNum);
-		}
-		else if (cat.equals(POKEMON))
-		{
-			fillArray(POKEMON);
+				wordNum = n.nextInt(countryArray.size());
+				word = countryArray.get(wordNum);
+				break;
+			case POKEMON:
+				fillArray(POKEMON);
 
-			wordNum = n.nextInt(pokemonArray.size());
-			word = pokemonArray.get(wordNum);
-		}
-		else if (cat.equals(GAME_OF_THRONES))
-		{
-			fillArray(GAME_OF_THRONES);
+				wordNum = n.nextInt(pokemonArray.size());
+				word = pokemonArray.get(wordNum);
+				break;
+			case GAME_OF_THRONES:
+				fillArray(GAME_OF_THRONES);
 
-			wordNum = n.nextInt(gameOfThronesArray.size());
-			word = gameOfThronesArray.get(wordNum);
-		}
-		else if (cat.equals(ASTRONOMY))
-		{
-			fillArray(ASTRONOMY);
+				wordNum = n.nextInt(gameOfThronesArray.size());
+				word = gameOfThronesArray.get(wordNum);
+				break;
+			case ASTRONOMY:
+				fillArray(ASTRONOMY);
 
-			wordNum = n.nextInt(astronomyArray.size());
-			word = astronomyArray.get(wordNum);
+				wordNum = n.nextInt(astronomyArray.size());
+				word = astronomyArray.get(wordNum);
+				break;
 		}
 
 		lengthOfWord = word.length();
@@ -227,16 +211,7 @@ public class Hangman
 	 */
 	public static boolean win()
 	{
-		boolean result;
-		if (wordGuess.equals(word))
-		{
-			result = true;
-		}
-		else
-		{
-			result = false;
-		}
-		return result;
+		return wordGuess.equals(word);
 	}
 
 	/**
